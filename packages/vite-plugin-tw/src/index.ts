@@ -3,7 +3,7 @@ import fs from 'node:fs/promises'
 import type { Plugin } from 'vite'
 import { build } from 'esbuild'
 import fg from 'fast-glob'
-import type { Options as AutoprefixerOptions } from 'autoprefixer'
+import type { Options } from '../types/index'
 
 const OUTDIR = path.resolve(process.cwd(), '.vite_plugin_tailwindcss')
 const OUTFILE = path.resolve(OUTDIR, '_tailwind.config.cjs')
@@ -60,22 +60,10 @@ async function plugin() {
     config: TW_CONFIG_FILE,
   })
 }
-export type Options = {
-  /**
-   * @see https://tailwindcss.com/docs/using-with-preprocessors#nesting
-   */
-  nesting?: 'postcss-nested' | 'postcss-nesting'
-  /**
-   * Options to pass to autoprefixer
-   *
-   * @see https://github.com/postcss/autoprefixer#options
-   */
-  autoprefixerOptions?: AutoprefixerOptions
-}
 
 export const defaultConfig: Options = {}
 
-export function vitePluginTailwindcss(config: Options = defaultConfig): Plugin {
+export function vitePluginTW(config: Options = defaultConfig): Plugin {
   const pluginResult = plugin()
 
   return {
@@ -119,4 +107,4 @@ export function vitePluginTailwindcss(config: Options = defaultConfig): Plugin {
   }
 }
 
-export default vitePluginTailwindcss
+export default vitePluginTW

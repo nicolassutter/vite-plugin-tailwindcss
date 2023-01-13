@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
-import { vitePluginTailwindcss } from 'vite-plugin-tw'
+import vitePluginTW from 'vite-plugin-tw'
 
 export default defineConfig({
   plugins: [
-    vitePluginTailwindcss({
+    vitePluginTW({
       nesting: 'postcss-nesting',
     }),
   ],
