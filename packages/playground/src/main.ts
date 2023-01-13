@@ -21,6 +21,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = /* html */ `
     <p class="text-white test">
       I should have white text and a dark background.
     </p>
+
+    <div class="parent">
+      <div class="child">I am a child that should have a background color</div>
+    </div>
   </div>
 `
 

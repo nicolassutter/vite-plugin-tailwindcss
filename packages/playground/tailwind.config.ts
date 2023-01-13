@@ -6,6 +6,7 @@ export default {
     extend: {
       colors: {
         base: 'black',
+        'base-100': 'gray',
       },
     },
   },

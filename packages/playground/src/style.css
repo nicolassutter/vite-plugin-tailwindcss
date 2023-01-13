@@ -103,3 +103,10 @@ button:focus-visible {
 .test {
   @apply bg-base;
 }
+
+
+.parent {
+  & .child {
+    @apply bg-emerald-500;
+  }
+}
