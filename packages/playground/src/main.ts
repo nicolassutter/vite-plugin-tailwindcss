@@ -2,7 +2,7 @@ import './style.css'
 import typescriptLogo from './typescript.svg'
 import { setupCounter } from './counter'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+document.querySelector<HTMLDivElement>('#app')!.innerHTML = /* html */ `
   <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
@@ -16,6 +16,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </div>
     <p class="read-the-docs">
       Click on the Vite and TypeScript logos to learn more
+    </p>
+
+    <p class="text-white test">
+      I should have white text and a dark background.
     </p>
   </div>
 `

@@ -1,0 +1,1 @@
+module.exports = require('./_tailwind.config.cjs').default
