@@ -4,7 +4,7 @@ import type { Plugin } from 'vite'
 import { build } from 'esbuild'
 import fg from 'fast-glob'
 
-async function generate(watch: boolean) {
+async function generate({ watch, config }: { watch: boolean; config: string }) {
   const dir = path.resolve(process.cwd(), '.vite')
 
   await build({
@@ -14,7 +14,7 @@ async function generate(watch: boolean) {
     // Don't bundle npm deps
     packages: 'external',
     write: true,
-    entryPoints: [path.resolve(process.cwd(), 'tailwind.config.ts')],
+    entryPoints: [config],
     outfile: path.resolve(process.cwd(), dir, '_tailwind.config.cjs'),
     watch,
     plugins: [
@@ -24,7 +24,7 @@ async function generate(watch: boolean) {
           build.onEnd(() => {
             fs.writeFile(
               path.resolve(dir, 'tailwind.config.cjs'),
-              `module.exports = require('./_tailwind.config.cjs').default`,
+              `const { default: config } = require('./_tailwind.config.cjs'); module.exports = config;`,
             )
           })
         },
@@ -33,7 +33,7 @@ async function generate(watch: boolean) {
   })
 }
 
-async function init() {
+async function plugin() {
   const TW_CONFIG_FILES = await fg(
     path.resolve(process.cwd(), 'tailwind.config.{js,cjs,ts,mjs}'),
   )
@@ -45,11 +45,15 @@ async function init() {
       'No Tailwind CSS config file was found. Please make sure you have placed a `tailwind.config.{js,cjs,ts,mjs}` at the root of your project.',
     )
   }
+
+  generate({
+    watch: process.env.NODE_ENV === 'development',
+    config: TW_CONFIG_FILE,
+  })
 }
 
 export function vitePluginTailwindcss(_config = {}): Plugin {
-  init()
-  generate(process.env.NODE_ENV === 'development')
+  plugin()
 
   return {
     name: 'vite-plugin-tailwindcss',
