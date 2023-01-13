@@ -79,7 +79,7 @@ export function vitePluginTailwindcss(config: Options = defaultConfig): Plugin {
   const pluginResult = plugin()
 
   return {
-    name: 'vite-plugin-tailwindcss',
+    name: 'vite-plugin-tw',
 
     async config() {
       const [

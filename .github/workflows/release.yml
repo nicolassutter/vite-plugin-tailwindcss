@@ -38,6 +38,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - run: pnpm publish --filter "vite-plugin-tailwindcss"
+      - run: pnpm publish --filter "vite-plugin-tw"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
