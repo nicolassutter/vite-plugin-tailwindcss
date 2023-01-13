@@ -5,7 +5,7 @@ import { build } from 'esbuild'
 import fg from 'fast-glob'
 import type { Options } from '../types/index'
 
-const OUTDIR = path.resolve(process.cwd(), '.vite_plugin_tailwindcss')
+const OUTDIR = path.resolve(process.cwd(), '.vite-plugin-tw')
 const OUTFILE = path.resolve(OUTDIR, '_tailwind.config.cjs')
 const OUT_CONFIG_FILE = path.resolve(OUTDIR, 'tailwind.config.cjs')
 
