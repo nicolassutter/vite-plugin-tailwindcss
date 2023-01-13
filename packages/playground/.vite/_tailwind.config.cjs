@@ -26,8 +26,10 @@ module.exports = __toCommonJS(tailwind_config_exports);
 var tailwind_config_default = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    colors: {
-      base: "black"
+    extend: {
+      colors: {
+        base: "black"
+      }
     }
   },
   plugins: []
