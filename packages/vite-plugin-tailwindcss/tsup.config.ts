@@ -9,4 +9,6 @@ export default defineConfig({
   dts: true,
   format: ['cjs', 'esm'],
   silent: IS_DEV,
+  bundle: true,
+  skipNodeModulesBundle: true,
 })
