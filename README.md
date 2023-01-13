@@ -66,7 +66,7 @@ Well, I really like Tailwind but I got annoyed at the lack of support for `.ts` 
 
 Having a `.ts` file as a config allows for a better DX overall, as well as having access to `satisfies` for better autocomplete in editors when accessing the theme in actual application code.
 
-## Thanks
+## Thanks 💚
 
 - [Windi CSS](https://windicss.org/), took quite a bit of inspiration.
 - [esbuild](https://esbuild.github.io/)
