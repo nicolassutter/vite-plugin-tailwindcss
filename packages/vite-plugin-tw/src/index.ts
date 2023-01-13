@@ -6,7 +6,7 @@ import fg from 'fast-glob'
 import type { Options as AutoprefixerOptions } from 'autoprefixer'
 
 const OUTDIR = path.resolve(process.cwd(), '.vite_plugin_tailwindcss')
-const OUTFILE = path.resolve(process.cwd(), OUTDIR, '_tailwind.config.cjs')
+const OUTFILE = path.resolve(OUTDIR, '_tailwind.config.cjs')
 const OUT_CONFIG_FILE = path.resolve(OUTDIR, 'tailwind.config.cjs')
 
 async function generate({ watch, config }: { watch: boolean; config: string }) {
