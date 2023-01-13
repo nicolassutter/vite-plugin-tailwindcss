@@ -2,8 +2,7 @@
   "name": "vite-plugin-tailwindcss-monorepo",
   "scripts": {
     "build": "pnpm run --parallel build",
-    "release": "cd packages/vite-plugin-tailwindcss && pnpm release",
-    "deploy": "cd packages/vite-plugin-tailwindcss && pnpm publish"
+    "release": "cd packages/vite-plugin-tailwindcss && pnpm release"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
