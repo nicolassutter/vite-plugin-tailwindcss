@@ -3,7 +3,13 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": ["ESNext", "DOM"],
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "types": [
+      "vite-plugin-tw/types"
+    ],
     "moduleResolution": "Node",
     "strict": true,
     "resolveJsonModule": true,
@@ -15,5 +21,7 @@
     "noImplicitReturns": true,
     "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

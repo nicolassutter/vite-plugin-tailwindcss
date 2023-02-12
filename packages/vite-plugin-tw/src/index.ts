@@ -1,15 +1,18 @@
-import path from 'node:path'
+import path, { resolve } from 'node:path'
 import fs from 'node:fs/promises'
 import type { Plugin } from 'vite'
 import { build } from 'esbuild'
 import fg from 'fast-glob'
 import type { Options } from '../types/index'
+import { getPackageInfo } from 'local-pkg'
 
 const OUTDIR = path.resolve(process.cwd(), '.vite-plugin-tw')
 const OUTFILE = path.resolve(OUTDIR, '_tailwind.config.cjs')
 const OUT_CONFIG_FILE = path.resolve(OUTDIR, 'tailwind.config.cjs')
 
 async function generate({ watch, config }: { watch: boolean; config: string }) {
+  let fullConfig = {}
+
   const result = await build({
     format: 'cjs',
     // Bundle imports together
@@ -24,7 +27,16 @@ async function generate({ watch, config }: { watch: boolean; config: string }) {
       {
         name: 'on-end',
         setup(build) {
-          build.onEnd(() => {
+          build.onEnd(async () => {
+            const { default: cjsConfig } = await import(OUTFILE)
+            const conf = 'default' in cjsConfig ? cjsConfig.default : cjsConfig
+
+            const { default: resolveConfig } = await import(
+              'tailwindcss/resolveConfig.js'
+            )
+
+            fullConfig = resolveConfig(conf)
+
             fs.writeFile(
               OUT_CONFIG_FILE,
               [
@@ -39,7 +51,10 @@ async function generate({ watch, config }: { watch: boolean; config: string }) {
     ],
   })
 
-  return result
+  return {
+    fullConfig,
+    result,
+  }
 }
 
 async function plugin() {
@@ -65,6 +80,30 @@ export const defaultConfig: Options = {}
 
 export function vitePluginTW(config: Options = defaultConfig): Plugin {
   const pluginResult = plugin()
+  const virtualModuleId = 'virtual:tw-config'
+  const resolvedVirtualModuleId = `\0${virtualModuleId}`
+
+  /**
+   * Writes a .d.ts file in the package's dir
+   * declaring the tailwind config literal type.
+   *
+   * NOTE: Does not work with dependencies listed as "workspace:*" in pnpm
+   */
+  getPackageInfo('vite-plugin-tw').then(async (r) => {
+    const awaitedPluginResult = await pluginResult
+
+    if (r) {
+      fs.writeFile(
+        resolve(r.rootPath, 'types.d.ts'),
+        [
+          `declare module 'virtual:tw-config' {`,
+          `  const conf: ${JSON.stringify(awaitedPluginResult.fullConfig)}`,
+          `  export default conf`,
+          `}`,
+        ].join('\n'),
+      )
+    }
+  })
 
   return {
     name: 'vite-plugin-tw',
@@ -102,7 +141,21 @@ export function vitePluginTW(config: Options = defaultConfig): Plugin {
 
     async closeWatcher() {
       const buildResult = await pluginResult
-      buildResult?.stop && buildResult.stop()
+      buildResult.result?.stop && buildResult.result.stop()
+    },
+
+    resolveId(id) {
+      if (id === virtualModuleId) {
+        return resolvedVirtualModuleId
+      }
+    },
+
+    async load(id) {
+      const buildResult = await pluginResult
+
+      if (id === resolvedVirtualModuleId) {
+        return `export default ${JSON.stringify(buildResult.fullConfig)};`
+      }
     },
   }
 }

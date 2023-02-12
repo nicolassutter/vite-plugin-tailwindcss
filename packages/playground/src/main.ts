@@ -2,7 +2,10 @@ import './style.css'
 import typescriptLogo from './typescript.svg'
 import { setupCounter } from './counter'
 
+import t from 'virtual:tw-config'
+
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = /* html */ `
+  ${JSON.stringify(t)}
   <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />

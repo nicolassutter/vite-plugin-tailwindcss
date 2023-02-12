@@ -48,6 +48,7 @@ importers:
       cross-env: ^7.0.3
       esbuild: '>=0.16.6 <0.17.0'
       fast-glob: ^3.2.12
+      local-pkg: ^0.4.3
       postcss: '>=8.4.0'
       tailwindcss: '>=3.0.0'
       tsup: ^6.5.0
@@ -60,6 +61,7 @@ importers:
       cross-env: 7.0.3
       esbuild: 0.16.17
       fast-glob: 3.2.12
+      local-pkg: 0.4.3
       postcss: 8.4.21
       tailwindcss: 3.2.4_postcss@8.4.21
       tsup: 6.5.0_k22f457wtryv7dv7ltdlwpdpdm
@@ -1064,7 +1066,7 @@ packages:
       '@typescript-eslint/parser': 5.48.1_iukboom6ndih5an6iafl45j2fe
       eslint: 8.31.0
       eslint-define-config: 1.14.0
-      local-pkg: 0.4.2
+      local-pkg: 0.4.3
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -1525,8 +1527,8 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
 
-  /local-pkg/0.4.2:
-    resolution: {integrity: sha512-mlERgSPrbxU3BP4qBqAvvwlgW4MTg78iwJdGGnv7kibKjWcJksrG3t6LB5lXI93wXRDvG4NpUgJFmTG4T6rdrg==}
+  /local-pkg/0.4.3:
+    resolution: {integrity: sha512-SFppqq5p42fe2qcZQqqEOiVRXl+WCP1MdT6k7BDEW1j++sp5fIY+/fdRQitvKgB5BrBcmrs5m/L0v2FrU5MY1g==}
     engines: {node: '>=14'}
     dev: true
 
